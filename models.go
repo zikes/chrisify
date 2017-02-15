@@ -1,13 +1,18 @@
 package main
 
 import (
+	"bytes"
 	"image"
 	"io/ioutil"
+	"log"
 	"math/rand"
 	"os"
 	"path"
 	"path/filepath"
+	"sort"
 	"time"
+
+	"github.com/disintegration/imaging"
 )
 
 func init() {
@@ -54,7 +59,23 @@ func (fl FaceList) Random() image.Image {
 	return face.Image
 }
 
+func (fl *FaceList) loadInternal() {
+	assets := AssetNames()
+	sort.Strings(assets)
+	for _, asset := range assets {
+		img, _, err := image.Decode(bytes.NewReader(MustAsset(asset)))
+		if err != nil {
+			log.Fatalf("error decoding internal image: %s", err)
+		}
+		*fl = append(*fl, &Face{Image: img})
+	}
+}
+
 func (fl *FaceList) Load(dir string) error {
+	fl.loadInternal()
+	if dir == "" {
+		return nil
+	}
 	files, err := ioutil.ReadDir(dir)
 	if err != nil {
 		return err
