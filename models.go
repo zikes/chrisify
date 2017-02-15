@@ -56,6 +56,9 @@ type FaceList []*Face
 func (fl FaceList) Random() image.Image {
 	i := rand.Intn(len(fl))
 	face := fl[i]
+	if rand.Intn(2) == 0 {
+		return imaging.FlipH(face.Image)
+	}
 	return face.Image
 }
 
