@@ -6,6 +6,8 @@
 
 2. `git clone git@git.nwaonline.com:jhutchinson/chrisify.git $GOPATH/chrisify`
 
-3. `cd $GOPATH/chrisify && go build`
+3. `go get github.com/lazywei/go-opencv`
 
-4. `./chrisify path/to/image.jpg > output.jpg`
+4. `cd $GOPATH/chrisify && go build`
+
+5. `./chrisify path/to/image.jpg > output.jpg`
