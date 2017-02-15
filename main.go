@@ -81,7 +81,7 @@ func main() {
 			canvas,
 			bounds,
 			face,
-			bounds.Min.Add(image.Pt(-bounds.Max.X/2+face_bounds.Max.X/2, -bounds.Max.Y+(face_bounds.Max.Y/2))),
+			bounds.Min.Add(image.Pt(-bounds.Max.X/2+face_bounds.Max.X/2, -bounds.Max.Y+int(float64(face_bounds.Max.Y)/1.9))),
 			draw.Over,
 		)
 	}
