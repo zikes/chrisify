@@ -1,7 +1,6 @@
 package main
 
 import (
-	"chrisify/facefinder"
 	"flag"
 	"image"
 	"image/draw"
@@ -9,6 +8,8 @@ import (
 	_ "image/png"
 	"os"
 	"path/filepath"
+
+	"github.com/zikes/chrisify/facefinder"
 
 	"github.com/disintegration/imaging"
 )
