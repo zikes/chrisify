@@ -4,11 +4,11 @@
 
 1. Install the OpenCV Developer package. On Ubuntu systems that's `sudo apt install libopencv-dev`
 
-2. `git clone git@git.nwaonline.com:jhutchinson/chrisify.git $GOPATH/chrisify`
+2. `go get github.com/zikes/chrisify`
 
 3. `go get github.com/lazywei/go-opencv`
 
-4. `cd $GOPATH/chrisify && go build && go install`
+4. `cd $GOPATH/github.com/zikes/chrisify && go build && go install`
 
 ## Usage
 
