@@ -25,3 +25,7 @@ If you'd like to include additional face options, you can provide a directory of
 to be imported:
 
 `chrisify --faces /path/to/faces /path/to/input.jpg > output.jpg`
+
+## Personalizing
+
+Chris is a great guy, but I can understand if you'd rather use some different faces. The most effective way to do this is to remove the `FaceList.loadInternal()` function (and reference) and delete `bindata.go`. Then make sure you run the executable with the `--faces` argument to load only the faces you want to use. Unless I'm forgetting anything, that's all there is to it!
