@@ -8,7 +8,7 @@
 
 3. `go get github.com/lazywei/go-opencv`
 
-4. `cd $GOPATH/github.com/zikes/chrisify && go build && go install`
+4. `cd $GOPATH/src/github.com/zikes/chrisify && go build && go install`
 
 ## Usage
 
