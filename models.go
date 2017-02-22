@@ -75,8 +75,8 @@ func (fl *FaceList) loadInternal() {
 }
 
 func (fl *FaceList) Load(dir string) error {
-	fl.loadInternal()
 	if dir == "" {
+		fl.loadInternal()
 		return nil
 	}
 	files, err := ioutil.ReadDir(dir)
