@@ -9,13 +9,24 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/zikes/chrisify/facefinder"
-
 	"github.com/disintegration/imaging"
+	"gocv.io/x/gocv"
 )
 
-var haarCascade = flag.String("haar", "haarcascade_frontalface_alt.xml", "The location of the Haar Cascade XML configuration to be provided to OpenCV.")
+var haarCascade = flag.String("haar", "haarcascade_frontalface_alt.xml", "how to make things work")
 var facesDir = flag.String("faces", "faces", "The directory to search for faces.")
+
+func detect(img gocv.Mat, xmlFile *string) []image.Rectangle {
+	classifier := gocv.NewCascadeClassifier()
+	defer classifier.Close()
+
+	var deref = *xmlFile
+	classifier.Load(deref)
+
+	faces := classifier.DetectMultiScale(img)
+
+	return faces
+}
 
 func main() {
 	flag.Parse()
@@ -41,16 +52,14 @@ func main() {
 	}
 
 	file := flag.Arg(0)
+	baseImg := loadImage(file)
+	detectImg := gocv.IMRead(file, 4)
 
-	finder := facefinder.NewFinder(*haarCascade)
+	faces := detect(detectImg, haarCascade)
 
-	baseImage := loadImage(file)
+	bounds := baseImg.Bounds()
 
-	faces := finder.Detect(baseImage)
-
-	bounds := baseImage.Bounds()
-
-	canvas := canvasFromImage(baseImage)
+	canvas := canvasFromImage(baseImg)
 
 	for _, face := range faces {
 		rect := rectMargin(30.0, face)
@@ -77,12 +86,12 @@ func main() {
 			0,
 			imaging.Lanczos,
 		)
-		face_bounds := face.Bounds()
+		faceBounds := face.Bounds()
 		draw.Draw(
 			canvas,
 			bounds,
 			face,
-			bounds.Min.Add(image.Pt(-bounds.Max.X/2+face_bounds.Max.X/2, -bounds.Max.Y+int(float64(face_bounds.Max.Y)/1.9))),
+			bounds.Min.Add(image.Pt(-bounds.Max.X/2+faceBounds.Max.X/2, -bounds.Max.Y+int(float64(faceBounds.Max.Y)/1.9))),
 			draw.Over,
 		)
 	}
