@@ -31,7 +31,7 @@ func detect(img gocv.Mat, xmlFile *string) []image.Rectangle {
 func main() {
 	flag.Parse()
 
-	var chrisFaces FaceList
+	var chanceFaces FaceList
 
 	var facesPath string
 	var err error
@@ -43,11 +43,11 @@ func main() {
 		}
 	}
 
-	err = chrisFaces.Load(facesPath)
+	err = chanceFaces.Load(facesPath)
 	if err != nil {
 		panic(err)
 	}
-	if len(chrisFaces) == 0 {
+	if len(chanceFaces) == 0 {
 		panic("no faces found")
 	}
 
@@ -64,7 +64,7 @@ func main() {
 	for _, face := range faces {
 		rect := rectMargin(30.0, face)
 
-		newFace := chrisFaces.Random()
+		newFace := chanceFaces.Random()
 		if newFace == nil {
 			panic("nil face")
 		}
@@ -81,7 +81,7 @@ func main() {
 
 	if len(faces) == 0 {
 		face := imaging.Resize(
-			chrisFaces[0],
+			chanceFaces[0],
 			bounds.Dx()/3,
 			0,
 			imaging.Lanczos,
